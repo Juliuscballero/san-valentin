@@ -29,15 +29,27 @@ yesBtn.addEventListener("click", () => {
 
 function startExplosion() {
     const words = ["IRIS 💚", "YAM 💚", "RABANITO 💚", "MI AMOR 💚", "MI MUJER 💚"];
-    const container = document.getElementById("explosionContainer");
-
     for (let i = 0; i < 25; i++) {
         const text = document.createElement("div");
         text.classList.add("explosionText");
         text.innerText = words[Math.floor(Math.random() * words.length)];
         text.style.left = Math.random() * 100 + "vw";
         text.style.top = Math.random() * 100 + "vh";
-        container.appendChild(text);
+        document.body.appendChild(text);
         setTimeout(() => text.remove(), 2000);
     }
+}
+
+function ultimateAccept() {
+    document.body.classList.add("fireMode");
+
+    const official = document.createElement("div");
+    official.classList.add("officialText");
+    official.innerText = "OFICIAL 💚🔥";
+    official.style.top = "40%";
+    official.style.left = "50%";
+    official.style.transform = "translate(-50%, -50%)";
+    document.body.appendChild(official);
+
+    setTimeout(() => official.remove(), 3000);
 }
