@@ -1,72 +1,17 @@
-body {
-    margin: 0;
-    overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #065f46, #022c22);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: white;
+.proposalText {
+    margin-top: 25px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeProposal 2s ease forwards;
+    animation-delay: 1s;
 }
 
-canvas {
-    position: absolute;
+@keyframes fadeProposal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.card {
-    position: relative;
-    background: rgba(255,255,255,0.08);
-    padding: 40px;
-    border-radius: 25px;
-    backdrop-filter: blur(20px);
-    text-align: center;
-    max-width: 520px;
-    box-shadow: 0 0 40px rgba(0,255,150,0.3);
-    z-index: 2;
-}
-
-.level {
-    display: none;
-}
-
-.level.active {
-    display: block;
-}
-
-button {
-    padding: 12px 30px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    margin: 10px;
-    background: #ff4d6d;
-    color: white;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.1);
-}
-
-.fire-container span {
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: block;
-    margin: 5px;
-}
-
-.fire-container span:hover {
-    transform: scale(1.2);
-}
-
-.finalMessage {
-    font-size: 2rem;
-    animation: pop 0.8s ease forwards;
-}
-
-@keyframes pop {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1.1); opacity: 1; }
+.extraButtons {
+    margin-top: 20px;
 }
