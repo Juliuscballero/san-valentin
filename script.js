@@ -1,18 +1,10 @@
+// CAMBIAR NIVELES
 function nextLevel(level) {
     document.querySelectorAll(".level").forEach(l => l.classList.remove("active"));
-    document.getElementById("level" + level)?.classList.add("active");
-
-    if (level === 3) {
-        document.getElementById("noBtn").addEventListener("mouseover", () => {
-            const x = Math.random() * (window.innerWidth - 150);
-            const y = Math.random() * (window.innerHeight - 100);
-            noBtn.style.position = "absolute";
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        });
-    }
+    document.getElementById("level" + level).classList.add("active");
 }
 
+// FUEGO 1-5
 function selectFire(level) {
     let text = "";
     if (level < 3) text = "Uy... tibio 🥺";
@@ -26,12 +18,41 @@ function selectFire(level) {
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
+// Botón NO huye
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Cuando dice que sí
 yesBtn.addEventListener("click", () => {
     document.querySelectorAll(".level").forEach(l => l.classList.remove("active"));
     document.getElementById("finalScreen").classList.add("active");
+    setTimeout(startNameExplosion, 500);
 });
 
-// PARTICULAS
+// EXPLOSIÓN DE NOMBRES
+function startNameExplosion() {
+
+    const words = ["IRIS 💚", "YAM 💚", "RABANITO 💚", "MI AMOR 💚", "MI MUJER 💚"];
+    const container = document.getElementById("explosionContainer");
+
+    for (let i = 0; i < 30; i++) {
+        const text = document.createElement("div");
+        text.classList.add("explosionText");
+        text.innerText = words[Math.floor(Math.random() * words.length)];
+        text.style.left = Math.random() * 100 + "vw";
+        text.style.top = Math.random() * 100 + "vh";
+        container.appendChild(text);
+
+        setTimeout(() => text.remove(), 2500);
+    }
+}
+
+// PARTÍCULAS DE FONDO
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
