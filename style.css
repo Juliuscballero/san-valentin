@@ -1,7 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #065f46, #022c22);
     display: flex;
     justify-content: center;
@@ -12,6 +12,8 @@ body {
 
 canvas {
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .card {
@@ -19,7 +21,6 @@ canvas {
     background: rgba(255,255,255,0.08);
     padding: 40px;
     border-radius: 25px;
-    backdrop-filter: blur(20px);
     text-align: center;
     max-width: 520px;
     box-shadow: 0 0 40px rgba(0,255,150,0.3);
@@ -57,32 +58,14 @@ button:hover {
     margin: 5px;
 }
 
-.fire-container span:hover {
-    transform: scale(1.2);
-}
-
 .finalMessage {
     font-size: 2rem;
-    animation: pop 0.8s ease forwards;
 }
 
 .proposalText {
     margin-top: 20px;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeProposal 2s ease forwards;
-    animation-delay: 1s;
-}
-
-@keyframes fadeProposal {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pop {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1.1); opacity: 1; }
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 #explosionContainer {
@@ -100,7 +83,6 @@ button:hover {
     font-size: 1.5rem;
     animation: explodeUp 2.5s ease-out forwards;
     color: #00ff99;
-    text-shadow: 0 0 15px #00ff99;
 }
 
 @keyframes explodeUp {
