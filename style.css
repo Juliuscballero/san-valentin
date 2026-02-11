@@ -1,117 +1,103 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #065f46, #022c22);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: white;
-    transition: 0.5s ease;
+function nextLevel(level) {
+    document.querySelectorAll(".level").forEach(l => l.classList.remove("active"));
+    document.getElementById("level" + level).classList.add("active");
 }
 
-.card {
-    background: rgba(0,0,0,0.4);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 520px;
-    width: 90%;
+function selectFire(level) {
+    let text = "";
+    if (level < 3) text = "Uy... tibio 🥺";
+    if (level === 3) text = "Eso ya se siente 😏🔥";
+    if (level === 4) text = "Cuidado que me prendo 😳🔥🔥";
+    if (level === 5) text = "INCENDIO TOTAL 🔥🔥🔥🔥🔥💘";
+    document.getElementById("fireResult").innerText = text;
 }
 
-.level {
-    display: none;
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-.level.active {
-    display: block;
-}
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const muakBtn = document.getElementById("muakBtn");
 
-button {
-    padding: 12px 30px;
-    margin: 10px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    background: #ff4d6d;
-    color: white;
-    font-weight: bold;
-    transition: 0.3s ease;
-}
+    // Detectar móvil
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-button:hover {
-    transform: scale(1.1);
-}
+    // BOTÓN NO (PC = hover, Móvil = click)
+    if (noBtn) {
 
-.fire-container span {
-    cursor: pointer;
-    font-size: 20px;
-    display: block;
-    margin: 5px;
-}
+        function moveButton() {
+            noBtn.style.position = "absolute";
+            noBtn.style.left = Math.random() * 80 + "%";
+            noBtn.style.top = Math.random() * 80 + "%";
+        }
 
-.finalText {
-    font-size: 22px;
-}
+        if (isMobile) {
+            noBtn.addEventListener("click", moveButton);
+        } else {
+            noBtn.addEventListener("mouseover", moveButton);
+        }
+    }
 
-.alphaQuestion {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
+    // Pasar al final
+    if (yesBtn) {
+        yesBtn.addEventListener("click", () => {
+            document.querySelectorAll(".level").forEach(l => l.classList.remove("active"));
+            document.getElementById("finalScreen").classList.add("active");
+            startExplosion();
+        });
+    }
 
-.finalButtons {
-    margin-top: 20px;
-}
+    // ACEPTO
+    if (acceptBtn) {
+        acceptBtn.addEventListener("click", function () {
 
-#explosionContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
+            document.body.classList.add("fireMode");
 
-.explosionText {
-    position: fixed;
-    font-size: 20px;
-    font-weight: bold;
-    animation: explode 2s forwards;
-    color: #00ff99;
-}
+            const official = document.createElement("div");
+            official.classList.add("officialText");
+            official.innerText = "OFICIAL 💚🔥";
+            official.style.top = "40%";
+            official.style.left = "50%";
+            official.style.transform = "translate(-50%, -50%)";
+            document.body.appendChild(official);
 
-@keyframes explode {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(1.8) translateY(-200px); }
-}
+            startExplosion();
 
-.fireMode {
-    background: linear-gradient(135deg, #7f0000, #ff0000);
-}
+            setTimeout(() => official.remove(), 3000);
+        });
+    }
 
-.officialText {
-    position: fixed;
-    font-size: 60px;
-    font-weight: bold;
-    color: white;
-    animation: officialPop 0.8s ease;
-}
+    // MUAK
+    if (muakBtn) {
+        muakBtn.addEventListener("click", function () {
 
-@keyframes officialPop {
-    from { transform: scale(0.3); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
+            const message = document.createElement("div");
+            message.classList.add("muakMessage");
+            message.innerText = "El domingo me como tu desa, pelón pelón como siempre 😏🔥";
 
-.muakMessage {
-    position: fixed;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.85);
-    padding: 20px 30px;
-    border-radius: 15px;
-    font-weight: bold;
-    z-index: 999;
-    animation: officialPop 0.4s ease;
+            document.body.appendChild(message);
+
+            startExplosion();
+
+            setTimeout(() => message.remove(), 3000);
+        });
+    }
+
+});
+
+// Explosión
+function startExplosion() {
+
+    const words = ["IRIS 💚", "YAM 💚", "RABANITO 💚", "MI AMOR 💚", "MI MUJER 💚"];
+
+    for (let i = 0; i < 30; i++) {
+        const text = document.createElement("div");
+        text.classList.add("explosionText");
+        text.innerText = words[Math.floor(Math.random() * words.length)];
+        text.style.left = Math.random() * 100 + "vw";
+        text.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(text);
+
+        setTimeout(() => text.remove(), 2000);
+    }
 }
